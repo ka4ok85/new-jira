@@ -1,8 +1,0 @@
-/home/evgeny/Documents/workspace-sts-3.7.1.RELEASE/new-jira/src/main/java/com/example/rest/UserController.java
-/home/evgeny/Documents/workspace-sts-3.7.1.RELEASE/new-jira/src/main/java/com/example/entity/Action.java
-/home/evgeny/Documents/workspace-sts-3.7.1.RELEASE/new-jira/src/main/java/com/example/entity/ActionID.java
-/home/evgeny/Documents/workspace-sts-3.7.1.RELEASE/new-jira/src/main/java/com/example/entity/Case.java
-/home/evgeny/Documents/workspace-sts-3.7.1.RELEASE/new-jira/src/main/java/com/example/entity/User.java
-/home/evgeny/Documents/workspace-sts-3.7.1.RELEASE/new-jira/src/main/java/com/example/NewJiraApplication.java
-/home/evgeny/Documents/workspace-sts-3.7.1.RELEASE/new-jira/src/main/java/com/example/repository/CaseRepository.java
-/home/evgeny/Documents/workspace-sts-3.7.1.RELEASE/new-jira/src/main/java/com/example/repository/UserRepository.java
