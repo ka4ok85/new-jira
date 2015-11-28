@@ -1,6 +1,7 @@
 *.class
 .mvn/wrapper
 .settings
+.settings/
 target/
 .project
 mvnw
