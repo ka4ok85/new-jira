@@ -1,6 +1,5 @@
 package com.example.entity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,19 +12,34 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "users")
 public class User extends AbstractPersistable<Long>{
 
 	private static final long serialVersionUID = 8640946896564355389L;
 
+	@JsonView(com.example.entity.User.class)
+	@Column(name = "login", unique = true, nullable = false, length = 255)
 	private String login;
+
+	@Column(name = "password", unique = false, nullable = false, length = 255)
 	private String password;
+	
+	@JsonView(com.example.entity.User.class)
+	@Column(name = "first_name", unique = false, nullable = false, length = 255)
 	private String firstName;
+	
+	@JsonView(com.example.entity.User.class)
+	@Column(name = "last_name", unique = false, nullable = false, length = 255)
 	private String lastName;
+
+	@JsonView(com.example.entity.User.class)
+	@Column(name = "status", unique = false, nullable = false, length = 255)	
 	private String status;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.user", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.user", cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	Set<Action> UserTickets = new HashSet<Action>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.user", cascade={CascadeType.PERSIST, CascadeType.MERGE})
@@ -34,7 +48,6 @@ public class User extends AbstractPersistable<Long>{
 	public User() {
 	}
 
-	@Column(name = "login", unique = true, nullable = false, length = 255)
 	public String getLogin() {
 		return login;
 	}
@@ -43,41 +56,33 @@ public class User extends AbstractPersistable<Long>{
 		this.login = login;
 	}
 
-	@Column(name = "password", unique = false, nullable = false, length = 255)
 	public String getPassword() {
 		return password;
 	}
-
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	@Column(name = "first_name", unique = false, nullable = false, length = 255)
 	public String getFirstName() {
 		return firstName;
 	}
-
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	@Column(name = "last_name", unique = false, nullable = false, length = 255)
 	public String getLastName() {
 		return lastName;
 	}
-
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	@Column(name = "status", unique = false, nullable = false, length = 255)
 	public String getStatus() {
 		return status;
 	}
-
 
 	public void setStatus(String status) {
 		this.status = status;
@@ -99,16 +104,10 @@ public class User extends AbstractPersistable<Long>{
 		UserComments = userComments;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "User [login=" + login + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", status=" + status + "]";
 	}
-	
-
-
-
-
 	
 }

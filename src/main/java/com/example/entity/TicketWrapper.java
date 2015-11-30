@@ -3,28 +3,12 @@ package com.example.entity;
 import com.fasterxml.jackson.annotation.JsonView;
 
 public class TicketWrapper extends Ticket {
-	/*
-	@JsonView(com.example.entity.TicketWrapper.class)
-	private Ticket ticket;
-	@JsonView(com.example.entity.TicketWrapper.class)
-	private User user;
-
-	public Ticket getTicket() {
-		return ticket;
-	}
-	public void setTicket(Ticket ticket) {
-		this.ticket = ticket;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	*/
 	
+	private static final long serialVersionUID = -7828524924041456561L;
+
 	@JsonView(com.example.entity.TicketWrapper.class)
 	private Long userId;
+
 	@JsonView(com.example.entity.TicketWrapper.class)
 	private String login;
 
@@ -48,5 +32,4 @@ public class TicketWrapper extends Ticket {
 		this.login = login;
 	}
 
-	
 }

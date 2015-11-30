@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "comments")
 @AssociationOverrides({ @AssociationOverride(name = "pk.user", joinColumns = @JoinColumn(name = "id_user") ),
@@ -16,9 +18,11 @@ import javax.persistence.Transient;
 public class Comment {
 	private CommentID pk = new CommentID();
 
+	@JsonView(com.example.entity.Comment.class)
 	@Column(name = "comment", nullable = false, length = 255)
 	private String comment;
 
+	@JsonView(com.example.entity.Comment.class)
 	@Column(name = "comment_date", nullable = false, length = 255)
 	private String commentDate;
 
@@ -67,7 +71,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [comment=" + comment + ", commentDate=" + commentDate + ", UserId=" + getUser().getId() + "]";
+		return "Comment [comment=" + comment + ", commentDate=" + commentDate + ", UserId=" + getUser().getId() + ", ticketId=" + getTicket().getId() + ", Id=" + getPk().getId() + "]";
 	}
 
 	

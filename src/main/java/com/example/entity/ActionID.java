@@ -1,16 +1,30 @@
 package com.example.entity;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Embeddable
 public class ActionID implements java.io.Serializable {
 
 	private static final long serialVersionUID = 4908522195701227506L;
-	private User user;
-    private Ticket ticket;
 
-    @ManyToOne
+	@Id
+	private Long id;
+
+	private User user;
+
+	private Ticket ticket;
+ 
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@ManyToOne
     public User getUser() {
         return user;
     }

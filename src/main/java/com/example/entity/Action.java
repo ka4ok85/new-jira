@@ -15,8 +15,6 @@ import javax.persistence.Transient;
 		@AssociationOverride(name = "pk.ticket", joinColumns = @JoinColumn(name = "id_ticket") ) })
 public class Action {
 
-	private static final long serialVersionUID = 2180807359929501954L;
-
 	private ActionID pk = new ActionID();
 
 	@Column(name = "action", nullable = false, length = 255)

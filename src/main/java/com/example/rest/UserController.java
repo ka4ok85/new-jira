@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.NotFoundException;
 import com.example.entity.User;
 import com.example.repository.UserRepository;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 public class UserController {
@@ -19,7 +21,8 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 
-	@RequestMapping(value = "/api/user/disable/{id}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/api/user/disable/{id}", method = RequestMethod.POST, produces = "application/json")
+	@JsonView(com.example.entity.User.class)
 	public Object disableUser(@PathVariable("id") Long id) {
 		User user = userRepository.findOne(id);
 		if (user == null ) {
@@ -32,9 +35,35 @@ public class UserController {
 		return user;
 	}
 
+	@RequestMapping(value = "/api/user/enable/{id}", method = RequestMethod.POST, produces = "application/json")
+	@JsonView(com.example.entity.User.class)
+	public Object enableUser(@PathVariable("id") Long id) {
+		User user = userRepository.findOne(id);
+		if (user == null ) {
+			throw new NotFoundException(id.toString());
+		}
+
+		user.setStatus("enabled");
+		userRepository.save(user);
+
+		return user;
+	}
+	
+	@RequestMapping(value = "/api/user/add", method = RequestMethod.POST, produces = "application/json")
+	@JsonView(com.example.entity.User.class)
+	public Object addUser(@RequestBody User user) {
+		User newUser = userRepository.save(user);
+		if (newUser == null ) {
+			throw new NotFoundException("Can not add new User");
+		}
+
+		return newUser;
+	}
+
 	@ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public void handleNotFound(NotFoundException exception) {
+		// returns only 404 code
     }
 	
 /*
@@ -76,9 +105,5 @@ public class UserController {
 	}
 
 
-	@RequestMapping("/")
-	public String defaultPage() {
-		return "Available Methods:<br />" + "/api/user/disable/{id}<br/>"+ "/api/user/enable/{id}<br/>";
-	}
 */
 }

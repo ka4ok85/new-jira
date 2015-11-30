@@ -1,16 +1,31 @@
 package com.example.entity;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Embeddable
 public class CommentID implements java.io.Serializable {
 
 	private static final long serialVersionUID = -5185832235301640383L;
+	
+	@Id
+	private Long id;
+	
 	private User user;
+	
     private Ticket ticket;
 
-    @ManyToOne
+    
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@ManyToOne
     public User getUser() {
         return user;
     }

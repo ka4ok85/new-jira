@@ -1,8 +1,6 @@
 package com.example.entity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name = "tickets")
 public class Ticket extends AbstractPersistable<Long>{
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.ticket", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.ticket", cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	Set<Action> UserTickets = new HashSet<Action>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.ticket", cascade={CascadeType.PERSIST, CascadeType.MERGE})
@@ -29,23 +27,32 @@ public class Ticket extends AbstractPersistable<Long>{
 	private static final long serialVersionUID = 8640946894564355389L;
 
 	@JsonView(com.example.entity.Ticket.class)
+	@Column(name = "title", unique = false, nullable = false, length = 255)
 	private String title;
+
 	@JsonView(com.example.entity.Ticket.class)
+	@Column(name = "description", unique = false, nullable = false)
 	private String description;
+
 	@JsonView(com.example.entity.Ticket.class)
+	@Column(name = "priority", unique = false, nullable = false, length = 255)
 	private String priority;
+
 	@JsonView(com.example.entity.Ticket.class)
+	@Column(name = "status", unique = false, nullable = false, length = 255)
 	private String status;
+
 	@JsonView(com.example.entity.Ticket.class)
+	@Column(name = "ticket_added", unique = false, nullable = false, length = 255)
 	private String ticketAdded;
+
 	@JsonView(com.example.entity.Ticket.class)
+	@Column(name = "ticket_updated", unique = false, nullable = false, length = 255)
 	private String ticketUpdated;
 	
-
 	public Ticket() {
 	}
 
-	@Column(name = "title", unique = false, nullable = false, length = 255)
 	public String getTitle() {
 		return title;
 	}
@@ -54,7 +61,6 @@ public class Ticket extends AbstractPersistable<Long>{
 		this.title = title;
 	}
 
-	@Column(name = "description", unique = false, nullable = false)
 	public String getDescription() {
 		return description;
 	}
@@ -63,7 +69,6 @@ public class Ticket extends AbstractPersistable<Long>{
 		this.description = description;
 	}
 
-	@Column(name = "priority", unique = false, nullable = false, length = 255)
 	public String getPriority() {
 		return priority;
 	}
@@ -72,7 +77,6 @@ public class Ticket extends AbstractPersistable<Long>{
 		this.priority = priority;
 	}
 
-	@Column(name = "status", unique = false, nullable = false, length = 255)
 	public String getStatus() {
 		return status;
 	}
@@ -81,7 +85,6 @@ public class Ticket extends AbstractPersistable<Long>{
 		this.status = status;
 	}
 
-	@Column(name = "ticket_added", unique = false, nullable = false, length = 255)
 	public String getTicketAdded() {
 		return ticketAdded;
 	}
@@ -90,7 +93,6 @@ public class Ticket extends AbstractPersistable<Long>{
 		this.ticketAdded = ticketAdded;
 	}
 
-	@Column(name = "ticket_updated", unique = false, nullable = false, length = 255)
 	public String getTicketUpdated() {
 		return ticketUpdated;
 	}
